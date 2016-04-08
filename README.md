@@ -1,6 +1,6 @@
 # kt-csv-kit
 
-[![CI](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/ci.yml)
+[![CI](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml/badge.svg)](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.philiprehberger/csv-kit)](https://central.sonatype.com/artifact/com.philiprehberger/csv-kit)
 
 CSV reading and writing for Kotlin with streaming support.
