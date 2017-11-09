@@ -1,13 +1,10 @@
-# kt-csv-kit
+# csv-kit
 
 [![CI](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml/badge.svg)](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.philiprehberger/csv-kit)](https://central.sonatype.com/artifact/com.philiprehberger/csv-kit)
+[![License](https://img.shields.io/github/license/philiprehberger/kt-csv-kit)](LICENSE)
 
 CSV reading and writing for Kotlin with streaming support.
-
-## Requirements
-
-- Kotlin 1.9+ / Java 17+
 
 ## Installation
 
@@ -15,7 +12,7 @@ CSV reading and writing for Kotlin with streaming support.
 
 ```kotlin
 dependencies {
-    implementation("com.philiprehberger:csv-kit:0.1.0")
+    implementation("com.philiprehberger:csv-kit:0.1.3")
 }
 ```
 
@@ -33,7 +30,7 @@ dependencies {
 <dependency>
     <groupId>com.philiprehberger</groupId>
     <artifactId>csv-kit</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.3</version>
 </dependency>
 ```
 
