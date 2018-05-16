@@ -1,6 +1,6 @@
 # csv-kit
 
-[![CI](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml/badge.svg)](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml)
+[![Tests](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml/badge.svg)](https://github.com/philiprehberger/kt-csv-kit/actions/workflows/publish.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.philiprehberger/csv-kit)](https://central.sonatype.com/artifact/com.philiprehberger/csv-kit)
 [![License](https://img.shields.io/github/license/philiprehberger/kt-csv-kit)](LICENSE)
 
@@ -11,17 +11,7 @@ CSV reading and writing for Kotlin with streaming support.
 ### Gradle (Kotlin DSL)
 
 ```kotlin
-dependencies {
-    implementation("com.philiprehberger:csv-kit:0.1.3")
-}
-```
-
-### Gradle (Groovy)
-
-```groovy
-dependencies {
-    implementation 'com.philiprehberger:csv-kit:0.1.0'
-}
+implementation("com.philiprehberger:csv-kit:0.1.4")
 ```
 
 ### Maven
@@ -30,7 +20,7 @@ dependencies {
 <dependency>
     <groupId>com.philiprehberger</groupId>
     <artifactId>csv-kit</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
 </dependency>
 ```
 
