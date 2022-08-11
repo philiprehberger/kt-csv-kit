@@ -44,6 +44,35 @@ public class CsvRow(
      */
     public fun getOrNull(column: String): String? = values[column]
 
+    /**
+     * Gets the value for the given column name as an [Int], or null if not parseable.
+     *
+     * @param column the column header name
+     * @return the int value, or null
+     */
+    public fun getInt(column: String): Int? = values[column]?.toIntOrNull()
+
+    /**
+     * Gets the value for the given column name as a [Double], or null if not parseable.
+     *
+     * @param column the column header name
+     * @return the double value, or null
+     */
+    public fun getDouble(column: String): Double? = values[column]?.toDoubleOrNull()
+
+    /**
+     * Gets the value for the given column name as a [Boolean].
+     *
+     * Recognized values: "true", "1", "yes" (case-insensitive) for true; everything else for false.
+     *
+     * @param column the column header name
+     * @return the boolean value, or null if the column is not found
+     */
+    public fun getBoolean(column: String): Boolean? {
+        val raw = values[column] ?: return null
+        return raw.lowercase() in setOf("true", "1", "yes")
+    }
+
     override fun toString(): String = "CsvRow($index, $values)"
 
 }

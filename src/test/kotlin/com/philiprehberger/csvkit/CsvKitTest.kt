@@ -4,6 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class CsvKitTest {
 
@@ -159,5 +160,69 @@ class CsvKitTest {
         assertEquals(2, rows.size)
         assertEquals("Alice", rows[0]["column0"])
         assertEquals("30", rows[0]["column1"])
+    }
+
+    @Test
+    fun `getInt returns parsed int`() {
+        val rows = Csv.read("name,age\nAlice,30")
+        assertEquals(30, rows[0].getInt("age"))
+    }
+
+    @Test
+    fun `getInt returns null for non-numeric`() {
+        val rows = Csv.read("name,age\nAlice,thirty")
+        assertNull(rows[0].getInt("age"))
+    }
+
+    @Test
+    fun `getDouble returns parsed double`() {
+        val rows = Csv.read("item,price\nWidget,19.99")
+        assertEquals(19.99, rows[0].getDouble("price"))
+    }
+
+    @Test
+    fun `getBoolean returns true for recognized values`() {
+        val rows = Csv.read("flag\ntrue\n1\nyes\nno")
+        assertEquals(true, rows[0].getBoolean("flag"))
+        assertEquals(true, rows[1].getBoolean("flag"))
+        assertEquals(true, rows[2].getBoolean("flag"))
+        assertEquals(false, rows[3].getBoolean("flag"))
+    }
+
+    @Test
+    fun `getBoolean returns null for missing column`() {
+        val rows = Csv.read("name\nAlice")
+        assertNull(rows[0].getBoolean("missing"))
+    }
+
+    @Test
+    fun `trimFields trims whitespace`() {
+        val reader = CsvReader(CsvConfig(trimFields = true))
+        val rows = reader.read("name , age \n Alice , 30 ")
+        assertEquals("Alice", rows[0]["name"])
+        assertEquals("30", rows[0]["age"])
+    }
+
+    @Test
+    fun `trimFields disabled preserves whitespace`() {
+        val reader = CsvReader(CsvConfig(trimFields = false))
+        val rows = reader.read("name,age\n Alice , 30 ")
+        assertEquals(" Alice ", rows[0]["name"])
+        assertEquals(" 30 ", rows[0]["age"])
+    }
+
+    @Test
+    fun `validateHeaders passes with correct headers`() {
+        val reader = CsvReader()
+        reader.validateHeaders("name,age\nAlice,30", listOf("name", "age"))
+    }
+
+    @Test
+    fun `validateHeaders throws for missing headers`() {
+        val reader = CsvReader()
+        val ex = assertFailsWith<IllegalArgumentException> {
+            reader.validateHeaders("name,age\nAlice,30", listOf("name", "email"))
+        }
+        assertTrue(ex.message!!.contains("email"))
     }
 }

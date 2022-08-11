@@ -11,7 +11,7 @@ CSV reading and writing for Kotlin with streaming support.
 ### Gradle (Kotlin DSL)
 
 ```kotlin
-implementation("com.philiprehberger:csv-kit:0.1.4")
+implementation("com.philiprehberger:csv-kit:0.2.0")
 ```
 
 ### Maven
@@ -20,7 +20,7 @@ implementation("com.philiprehberger:csv-kit:0.1.4")
 <dependency>
     <groupId>com.philiprehberger</groupId>
     <artifactId>csv-kit</artifactId>
-    <version>0.1.4</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
@@ -86,6 +86,31 @@ println(rows[0]["bio"]) // Loves coding, hiking
 println(rows[1]["bio"]) // Said "hello"
 ```
 
+### Typed Accessors
+
+```kotlin
+val rows = Csv.read("name,age,active\nAlice,30,true")
+val age: Int? = rows[0].getInt("age")        // 30
+val active: Boolean? = rows[0].getBoolean("active") // true
+val score: Double? = rows[0].getDouble("score")     // null
+```
+
+### Trim Fields
+
+```kotlin
+val reader = CsvReader(CsvConfig(trimFields = true))
+val rows = reader.read("name , age \n Alice , 30 ")
+println(rows[0]["name"]) // "Alice" (trimmed)
+```
+
+### Header Validation
+
+```kotlin
+val reader = CsvReader()
+reader.validateHeaders(csvInput, listOf("name", "email", "age"))
+// Throws IllegalArgumentException if any header is missing
+```
+
 ## API
 
 | Class / Function | Description |
@@ -96,6 +121,11 @@ println(rows[1]["bio"]) // Said "hello"
 | `CsvWriter` | CSV writer with `write()` and `writeToFile()` |
 | `CsvRow` | A single row with `get(column)`, `get(index)`, `getOrNull(column)` |
 | `CsvConfig` | Configuration: delimiter, quote char, header mode, empty line handling |
+| `CsvRow.getInt(column)` | Get field as Int or null |
+| `CsvRow.getDouble(column)` | Get field as Double or null |
+| `CsvRow.getBoolean(column)` | Get field as Boolean or null |
+| `CsvReader.validateHeaders()` | Validate expected columns exist |
+| `CsvConfig.trimFields` | Auto-trim whitespace from field values |
 
 ## Development
 
