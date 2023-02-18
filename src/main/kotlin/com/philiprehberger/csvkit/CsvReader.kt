@@ -51,7 +51,8 @@ public class CsvReader(public val config: CsvConfig = CsvConfig()) {
         val startIndex: Int
 
         if (config.hasHeader) {
-            headers = iterator.next()
+            val rawHeaders = iterator.next()
+            headers = if (config.trimFields) rawHeaders.map { it.trim() } else rawHeaders
             startIndex = 0
         } else {
             val firstRecord = iterator.next()
