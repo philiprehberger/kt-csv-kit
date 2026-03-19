@@ -8,7 +8,7 @@ package com.philiprehberger.csvkit
  * val csv = Csv.write(rows.map { it.values }, listOf("name", "age"))
  * ```
  */
-object Csv {
+public object Csv {
 
     /**
      * Reads a CSV string with optional configuration.
@@ -17,7 +17,7 @@ object Csv {
      * @param config optional configuration block applied to a [MutableCsvConfig]
      * @return a list of [CsvRow] objects
      */
-    fun read(input: String, config: MutableCsvConfig.() -> Unit = {}): List<CsvRow> {
+    public fun read(input: String, config: MutableCsvConfig.() -> Unit = {}): List<CsvRow> {
         val cfg = MutableCsvConfig().apply(config).toConfig()
         return CsvReader(cfg).read(input)
     }
@@ -30,7 +30,7 @@ object Csv {
      * @param config optional configuration block applied to a [MutableCsvConfig]
      * @return the formatted CSV string
      */
-    fun write(rows: List<Map<String, String>>, headers: List<String>, config: MutableCsvConfig.() -> Unit = {}): String {
+    public fun write(rows: List<Map<String, String>>, headers: List<String>, config: MutableCsvConfig.() -> Unit = {}): String {
         val cfg = MutableCsvConfig().apply(config).toConfig()
         val csvRows = rows.mapIndexed { index, values ->
             CsvRow(values, index)
@@ -42,15 +42,15 @@ object Csv {
 /**
  * Mutable configuration for use with the [Csv] DSL.
  */
-class MutableCsvConfig {
+public class MutableCsvConfig {
     /** The field delimiter character. */
-    var delimiter: Char = ','
+    public var delimiter: Char = ','
     /** The quote character for escaping fields. */
-    var quote: Char = '"'
+    public var quote: Char = '"'
     /** Whether the first row contains column headers. */
-    var hasHeader: Boolean = true
+    public var hasHeader: Boolean = true
     /** Whether to skip blank lines during parsing. */
-    var skipEmptyLines: Boolean = true
+    public var skipEmptyLines: Boolean = true
 
     internal fun toConfig(): CsvConfig = CsvConfig(delimiter, quote, hasHeader, skipEmptyLines)
 }

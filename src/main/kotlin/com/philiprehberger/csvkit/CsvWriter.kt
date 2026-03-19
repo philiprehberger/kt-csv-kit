@@ -10,7 +10,7 @@ import java.io.File
  *
  * @property config the CSV configuration
  */
-class CsvWriter(val config: CsvConfig = CsvConfig()) {
+public class CsvWriter(public val config: CsvConfig = CsvConfig()) {
 
     /**
      * Writes the given rows to a CSV string.
@@ -19,7 +19,7 @@ class CsvWriter(val config: CsvConfig = CsvConfig()) {
      * @param headers the column headers to include
      * @return the formatted CSV string
      */
-    fun write(rows: List<CsvRow>, headers: List<String>): String {
+    public fun write(rows: List<CsvRow>, headers: List<String>): String {
         val sb = StringBuilder()
 
         if (config.hasHeader) {
@@ -41,7 +41,7 @@ class CsvWriter(val config: CsvConfig = CsvConfig()) {
      * @param rows the list of [CsvRow] objects to write
      * @param headers the column headers
      */
-    fun writeToFile(path: String, rows: List<CsvRow>, headers: List<String>) {
+    public fun writeToFile(path: String, rows: List<CsvRow>, headers: List<String>) {
         File(path).writeText(write(rows, headers))
     }
 

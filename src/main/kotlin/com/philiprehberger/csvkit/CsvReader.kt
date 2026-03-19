@@ -10,7 +10,7 @@ import java.io.File
  *
  * @property config the CSV configuration
  */
-class CsvReader(val config: CsvConfig = CsvConfig()) {
+public class CsvReader(public val config: CsvConfig = CsvConfig()) {
 
     /**
      * Parses a CSV string into a list of [CsvRow] objects.
@@ -18,7 +18,7 @@ class CsvReader(val config: CsvConfig = CsvConfig()) {
      * @param input the CSV string to parse
      * @return a list of rows
      */
-    fun read(input: String): List<CsvRow> {
+    public fun read(input: String): List<CsvRow> {
         return stream(input).toList()
     }
 
@@ -28,7 +28,7 @@ class CsvReader(val config: CsvConfig = CsvConfig()) {
      * @param path the file path
      * @return a list of rows
      */
-    fun readFromFile(path: String): List<CsvRow> {
+    public fun readFromFile(path: String): List<CsvRow> {
         val content = File(path).readText()
         return read(content)
     }
@@ -42,7 +42,7 @@ class CsvReader(val config: CsvConfig = CsvConfig()) {
      * @param input the CSV string to parse
      * @return a sequence of [CsvRow] objects
      */
-    fun stream(input: String): Sequence<CsvRow> = sequence {
+    public fun stream(input: String): Sequence<CsvRow> = sequence {
         val records = parseRecords(input)
         val iterator = records.iterator()
         if (!iterator.hasNext()) return@sequence
