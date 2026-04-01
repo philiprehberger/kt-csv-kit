@@ -56,8 +56,9 @@ public class CsvReader(public val config: CsvConfig = CsvConfig()) {
         } else {
             val firstRecord = iterator.next()
             headers = firstRecord.indices.map { "column$it" }
+            val rawMap = headers.zip(firstRecord).toMap()
             val row = CsvRow(
-                headers.zip(firstRecord).toMap(),
+                if (config.trimFields) rawMap.mapValues { (_, v) -> v.trim() } else rawMap,
                 0
             )
             yield(row)
@@ -67,9 +68,28 @@ public class CsvReader(public val config: CsvConfig = CsvConfig()) {
         var rowIndex = startIndex
         while (iterator.hasNext()) {
             val fields = iterator.next()
-            val values = headers.zip(fields).toMap()
+            val values = headers.zip(fields).toMap().let { m ->
+                if (config.trimFields) m.mapValues { (_, v) -> v.trim() } else m
+            }
             yield(CsvRow(values, rowIndex))
             rowIndex++
+        }
+    }
+
+    /**
+     * Validates that the CSV input contains all expected column headers.
+     *
+     * @param input the CSV string to validate
+     * @param expectedHeaders the list of column names that must be present
+     * @throws IllegalArgumentException if any expected headers are missing
+     */
+    public fun validateHeaders(input: String, expectedHeaders: List<String>) {
+        val records = parseRecords(input)
+        if (records.isEmpty()) throw IllegalArgumentException("CSV input is empty")
+        val actualHeaders = records.first().toSet()
+        val missing = expectedHeaders.filter { it !in actualHeaders }
+        if (missing.isNotEmpty()) {
+            throw IllegalArgumentException("Missing CSV headers: ${missing.joinToString(", ")}")
         }
     }
 

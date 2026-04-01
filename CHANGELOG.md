@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 (2026-03-31)
+
+- Add `getInt()`, `getDouble()`, and `getBoolean()` typed accessors to `CsvRow`
+- Add `trimFields` option to `CsvConfig` for automatic whitespace trimming
+- Add `validateHeaders()` to verify expected CSV columns are present
+
 ## 0.1.5 (2026-03-31)
 
 - Standardize README to 3-badge format with emoji Support section
